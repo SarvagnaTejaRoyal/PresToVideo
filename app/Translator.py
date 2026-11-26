@@ -135,33 +135,24 @@ def translate_bullets(bullets: List[str], language: str) -> Translation:
     )
 
 
-if __name__ == "__main__":
-    sample_bullets = [
-        "Vice President Shri C. P. Radhakrishnan addressed the convocation ceremony of Srimanta Sankaradeva University of Health Sciences, Guwahati.",
-        "He also presented the Dr. John Berry White Award for the years 2023, 2024 and 2025.",
-    ]
 
-    for lang in ["Telugu", "Hindi"]:
+if __name__ == "__main__":
+
+    test_bullets = [
+    "The Vice-President of India, C. P. Radhakrishnan, today addressed the 42nd Annual Day celebrations of Nellai Nadar Matriculation Higher Secondary School at Kottivakkam, Chennai, the Vice-President paid rich tributes to K. Kamaraj, recalling his selfless leadership, simplicity and commitment to public welfare."
+]
+
+    for lang in ["Assamese", "Odia"]:
+
         print(f"\n{'=' * 60}")
-        print(f"Translating to {lang}")
+        print(f"Testing name translation: {lang}")
         print("=" * 60)
 
-        # Step 1: Translate English bullets
-        result = translate_bullets(sample_bullets, lang)
+        result = translate_bullets(test_bullets, lang)
 
-        for i, line in enumerate(result.translated_bullets, start=1):
-            print(f"{i}. {line}")
-
-        # Step 2: Combine translated bullets into one narration
-        narration_text = ". ".join( line.rstrip(".") for line in result.translated_bullets ) + "."
-
-        # Step 3: Send the translated text directly to TTS
-        output_file = f"output/audio/test_{lang.lower()}.mp3"
-
-        speech_result = generate_speech(
-            narration_text,
-            lang,
-            output_file
-        )
-
-        print(f"Audio generated: {speech_result.filename}")
+        for original, translated in zip(
+            test_bullets,
+            result.translated_bullets
+        ):
+            print(f"\nEnglish    : {original}")
+            print(f"Translation: {translated}")
